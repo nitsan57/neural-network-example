@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
-from neural_netowrk_helpers import (
+from .neural_netowrk_helpers import (
     plot_reg_results,
 )
 
@@ -151,3 +151,4 @@ def evaluate_model(model, test_loader, task, scaler_y_reg=None):
         plot_reg_results(pred_denorm[:100], target_denorm[:100])
 
     return all_predictions, all_targets
+
