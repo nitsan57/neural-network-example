@@ -181,7 +181,7 @@ def plot_sample_data(df):
         "fan_speed_2[rpm]",
     ]
     n_features = len(feature_cols)
-    fig, axes = plt.subplots(n_features, 1, figsize=(12, 2.5 * n_features), sharex=True)
+    fig, axes = plt.subplots(n_features, 1, figsize=(6, 1.25 * n_features), sharex=True)
     for i, c in enumerate(feature_cols):
         axes[i].plot(device_0.index, device_0[c], label=c)
         axes[i].set_title(f"Device 0 - {c} over time")
@@ -450,17 +450,4 @@ def plot_reg_results(pred_denorm, target_denorm):
     plt.legend()
     plt.grid(True, alpha=0.3)
 
-    # Scatter plot
-    plt.subplot(1, 2, 2)
-    plt.scatter(target_denorm, pred_denorm, alpha=0.5)
-    plt.plot(
-        [target_denorm.min(), target_denorm.max()],
-        [target_denorm.min(), target_denorm.max()],
-        "r--",
-        lw=2,
-    )
-    plt.xlabel("Actual Signal Power [dBm]")
-    plt.ylabel("Predicted Signal Power [dBm]")
-    plt.title("Regression: Scatter Plot")
-    plt.grid(True, alpha=0.3)
 
