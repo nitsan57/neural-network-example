@@ -171,32 +171,26 @@ def plot_sample_data(df):
     # Get first device data
     device_0 = df[df["device_id"] == 0].head(48)  # First 2 days
     device_0.set_index("timestamp", inplace=True)
-    device_0.plot()
+    feature_cols = [
+        "current_1[A]",
+        "current_2[A]",
+        "temp_1[c]",
+        "temp_2[c]",
+        "temp_3[c]",
+        "fan_speed_1[rpm]",
+        "fan_speed_2[rpm]",
+    ]
+    n_features = len(feature_cols)
+    fig, axes = plt.subplots(n_features, 1, figsize=(12, 2.5 * n_features), sharex=True)
+    for i, c in enumerate(feature_cols):
+        axes[i].plot(device_0.index, device_0[c], label=c)
+        axes[i].set_title(f"Device 0 - {c} over time")
+        axes[i].set_ylabel(c)
+        axes[i].legend()
+        axes[i].grid(True, alpha=0.3)
+    axes[-1].set_xlabel("Timestamp")
+    plt.tight_layout()
     plt.show()
-    # plt.figure(figsize=(12, 6))
-    # plt.plot(
-    #     device_0["timestamp"],
-    #     device_0["current_1[A]"],
-    #     "b-",
-    #     linewidth=2,
-    #     label="Current 1",
-    # )
-    # plt.plot(
-    #     device_0["timestamp"],
-    #     device_0["temp_1[c]"],
-    #     "r-",
-    #     linewidth=2,
-    #     label="Temperature 1",
-    # )
-    # plt.title("Sample Data - Device 0 (First 48 hours)")
-    # plt.xlabel("Timestamp")
-    # plt.ylabel("Value")
-    # plt.legend()
-    # plt.xticks(rotation=45)
-    # plt.grid(True, alpha=0.3)
-    # plt.tight_layout()
-    # plt.show()
-
     print("\nFirst 10 rows of the dataset:")
     print(
         df.head(10)[
@@ -469,3 +463,4 @@ def plot_reg_results(pred_denorm, target_denorm):
     plt.ylabel("Predicted Signal Power [dBm]")
     plt.title("Regression: Scatter Plot")
     plt.grid(True, alpha=0.3)
+
