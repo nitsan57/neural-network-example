@@ -429,26 +429,43 @@ def get_classification_data_loaders(
 # =====================================
 # Plotting FUNCTIONS
 # =====================================
-def plot_reg_results(pred_denorm, target_denorm):
-        plt.subplot(1, 2, 1)
-        plt.plot(target_denorm, label="Actual", color="blue", alpha=0.7)
-        plt.plot(pred_denorm, label="Predicted", color="red", alpha=0.7)
-        plt.title("Regression: Actual vs Predicted (First samples)")
-        plt.xlabel("Sample")
-        plt.ylabel("Signal Power [dBm]")
-        plt.legend()
-        plt.grid(True, alpha=0.3)
 
-        # Scatter plot
-        plt.subplot(1, 2, 2)
-        plt.scatter(target_denorm, pred_denorm, alpha=0.5)
-        plt.plot(
-            [target_denorm.min(), target_denorm.max()],
-            [target_denorm.min(), target_denorm.max()],
-            "r--",
-            lw=2,
-        )
-        plt.xlabel("Actual Signal Power [dBm]")
-        plt.ylabel("Predicted Signal Power [dBm]")
-        plt.title("Regression: Scatter Plot")
-        plt.grid(True, alpha=0.3)
+
+def plot_training_history(train_losses, val_losses, task):
+    """Plot training and validation loss"""
+    print(f"\n6. Plotting {task} training history...")
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(train_losses, label="Training Loss", color="blue")
+    plt.plot(val_losses, label="Validation Loss", color="red")
+    plt.title(f"{task.capitalize()} Model - Training History")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()
+
+
+def plot_reg_results(pred_denorm, target_denorm):
+    plt.subplot(1, 2, 1)
+    plt.plot(target_denorm, label="Actual", color="blue", alpha=0.7)
+    plt.plot(pred_denorm, label="Predicted", color="red", alpha=0.7)
+    plt.title("Regression: Actual vs Predicted (First samples)")
+    plt.xlabel("Sample")
+    plt.ylabel("Signal Power [dBm]")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Scatter plot
+    plt.subplot(1, 2, 2)
+    plt.scatter(target_denorm, pred_denorm, alpha=0.5)
+    plt.plot(
+        [target_denorm.min(), target_denorm.max()],
+        [target_denorm.min(), target_denorm.max()],
+        "r--",
+        lw=2,
+    )
+    plt.xlabel("Actual Signal Power [dBm]")
+    plt.ylabel("Predicted Signal Power [dBm]")
+    plt.title("Regression: Scatter Plot")
+    plt.grid(True, alpha=0.3)

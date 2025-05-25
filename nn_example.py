@@ -12,6 +12,7 @@ from neural_netowrk_helpers import (
     resample_and_interpolate,
     split_data,
     normalize_data,
+    plot_training_history,
     RNNModel,
 )
 
@@ -108,21 +109,6 @@ def train_model(
     model.load_state_dict(torch.load(f"best_model_{task}.pth"))
 
     return model, train_losses, val_losses
-
-
-def plot_training_history(train_losses, val_losses, task):
-    """Plot training and validation loss"""
-    print(f"\n6. Plotting {task} training history...")
-
-    plt.figure(figsize=(10, 6))
-    plt.plot(train_losses, label="Training Loss", color="blue")
-    plt.plot(val_losses, label="Validation Loss", color="red")
-    plt.title(f"{task.capitalize()} Model - Training History")
-    plt.xlabel("Epoch")
-    plt.ylabel("Loss")
-    plt.legend()
-    plt.grid(True, alpha=0.3)
-    plt.show()
 
 
 def evaluate_model(model, test_loader, task, scaler_y_reg=None):
